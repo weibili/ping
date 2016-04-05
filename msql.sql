@@ -3,7 +3,7 @@ CREATE DATABASE weather;
 USE weather;
 
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL auto_increment,
+  `id` varchar(11) NOT NULL,
   `password` varchar(200) NOT NULL,
   `lastlogints` datetime,
   PRIMARY KEY  (`id`)
