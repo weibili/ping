@@ -18,8 +18,9 @@ public class PhoneCaller {
      *            电话号码
      */
 	public static void call(String number) {
+		//TODO 必须明确给出adb的绝对路径
         String cmd = String
-                .format("adb shell  am start -n com.billy.phonehelper/.MainActivity -e type call -e number %s",
+                .format("c:\\adb\\adb.exe shell  am start -n com.billy.phonehelper/.MainActivity -e type call -e number %s",
                         new String[] { number });
         doCommand(cmd);
     }
@@ -33,8 +34,9 @@ public class PhoneCaller {
      *            短信内容
      */
     public static void sendSms(String number, String content) {
+		//TODO 必须明确给出adb的绝对路径
         String cmd = String
-                .format("adb shell  am start -n com.billy.phonehelper/.MainActivity -e type sms -e number %s -e content %s",
+                .format("c:\\adb\\adb.exe shell  am start -n com.billy.phonehelper/.MainActivity -e type sms -e number %s -e content %s",
                         new String[] { number, content });
         doCommand(cmd);
     }
@@ -63,11 +65,9 @@ public class PhoneCaller {
                 System.out.println(s);
             }
 
-            System.exit(0);
         } catch (IOException e) {
             System.out.println("exception happened - here's what I know: ");
             e.printStackTrace();
-            System.exit(-1);
         }
     }
 
