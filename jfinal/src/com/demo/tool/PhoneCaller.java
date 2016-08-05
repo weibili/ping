@@ -3,8 +3,14 @@ package com.demo.tool;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+
+import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 public class PhoneCaller {
+
+	static final String ADB = "c:\\adb\\adb.exe";
+	static long lastCmdTime = 0;
 
 	public static void main(String[] args) {
         // call("10010");
@@ -20,8 +26,8 @@ public class PhoneCaller {
 	public static void call(String number) {
 		//TODO 必须明确给出adb的绝对路径
         String cmd = String
-                .format("c:\\adb\\adb.exe shell  am start -n com.billy.phonehelper/.MainActivity -e type call -e number %s",
-                        new String[] { number });
+                .format("%s shell am start -n com.billy.phonehelper/.MainActivity -e type call -e number %s", 
+                        new String[] { ADB, number });
         doCommand(cmd);
     }
 
@@ -34,16 +40,21 @@ public class PhoneCaller {
      *            短信内容
      */
     public static void sendSms(String number, String content) {
+		content = Base64.encode(content.getBytes(Charset.forName("utf-8")));
 		//TODO 必须明确给出adb的绝对路径
         String cmd = String
-                .format("c:\\adb\\adb.exe shell  am start -n com.billy.phonehelper/.MainActivity -e type sms -e number %s -e content %s",
-                        new String[] { number, content });
+                .format("%s shell am start -n com.billy.phonehelper/.MainActivity -e type sms -e number %s -e content %s",
+                        new String[] { ADB, number, content });
         doCommand(cmd);
     }
 
     private static void doCommand(String cmd) {
         String s = null;
         try {
+			if (System.currentTimeMillis()-lastCmdTime > 120 * 1000) {
+                Runtime.getRuntime().exec(String.format("%s shell input keyevent 26", ADB));
+            }
+            lastCmdTime = System.currentTimeMillis();
         	System.out.println(cmd);
         	Runtime r = Runtime.getRuntime();
         	Process p = r.exec(cmd);   

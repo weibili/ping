@@ -20,13 +20,13 @@
 			<form action="<%=path%>/record/sumquery" method="post" >
 				<div class="form_box">
 					<ul>
-						<li style="border: none;"><span>设备IP:</span>
+						<li style="border: none;"><span>IP地址:</span>
 							<p>
 								<input name="hostIp" type="text"/>
 							</p>
 						</li>
 						
-						<li><span>设备名称:</span>
+						<li><span>链路名称:</span>
 							<p>
 								<input name="hostName" type="text"/>
 							</p>
@@ -52,7 +52,7 @@
 					<tbody>
 						<tr>
 							<th width="25%">IP</th>
-							<th width="24%">设备名称</th>
+							<th width="24%">链路名称</th>
 							<th width="24%">掉线次数</th>
 							<th width="24%">掉线总小时</th>
 							<th width="24%">单次掉线平均小时</th>

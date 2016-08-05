@@ -10,7 +10,7 @@
 			<h1>首页</h1>
 			<div class="table_box">
 			<br/><br/><br/><br/><br/><br/><br/><br/>
-				<h4>欢迎来到气象设备监控平台</h4>
+				<h4>欢迎来到气象局域网自动监控与报警平台</h4>
 				<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 			</div>
 		</div>

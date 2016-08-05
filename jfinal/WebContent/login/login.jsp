@@ -16,7 +16,7 @@
 <body>
 	<div class="manage_container">
 		<div class="main">
-			<h1>气象基站监控</h1>
+			<h1>气象局域网监控与报警平台</h1>
 			<div class="table_box">
 				<form action="<%=path%>/login/login" method="post">
 					<fieldset class="solid">
