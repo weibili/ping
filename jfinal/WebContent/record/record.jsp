@@ -20,13 +20,13 @@
 			<form action="<%=path%>/record/query" method="post" >
 				<div class="form_box">
 					<ul>
-						<li style="border: none;"><span>设备IP:</span>
+						<li style="border: none;"><span>IP地址:</span>
 							<p>
 								<input name="hostIp" type="text"/>
 							</p>
 						</li>
 						
-						<li><span>设备名称:</span>
+						<li><span>链路名称:</span>
 							<p>
 								<input name="hostName" type="text"/>
 							</p>
@@ -52,7 +52,7 @@
 					<tbody>
 						<tr>
 							<th width="25%">IP</th>
-							<th width="24%">设备名称</th>
+							<th width="24%">链路名称</th>
 							<th width="24%">首次掉线时间</th>
 							<th width="24%">最近掉线时间</th>
 							<th width="24%">掉线小时（四舍五入）</th>

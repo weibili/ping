@@ -10,18 +10,18 @@
 		<%@ include file="/common/header.html"%>
 		<div class="main">
 			<h1>
-				设备管理&nbsp;&nbsp; <a href="<%=path%>/host/add">添加设备</a>
+				链路管理&nbsp;&nbsp; <a href="<%=path%>/host/add">添加链路</a>
 			</h1>
 			<form action="<%=path%>/host/query" method="post" >
 				<div class="form_box">
 					<ul>
-						<li style="border: none;"><span>设备IP:</span>
+						<li style="border: none;"><span>IP地址:</span>
 							<p>
 								<input name="hostIp" type="text" value="${hostIp}"/>
 							</p>
 						</li>
 						
-						<li><span>设备名称:</span>
+						<li><span>链路名称:</span>
 							<p>
 								<input name="hostName" type="text"  value="${hostName}"/>
 							</p>
@@ -36,9 +36,9 @@
 				<table class="list">
 					<tbody>
 						<tr>
-							<th width="3%">设备IP</th>
-							<th width="10%">设备名称</th>
-							<th width="4%">设备状态</th>
+							<th width="3%">地址IP</th>
+							<th width="10%">链路名称</th>
+							<th width="4%">链路状态</th>
 							<th width="4%">是否启动监控</th>
 							<th width="3%">操作</th>
 						</tr>
@@ -46,7 +46,7 @@
 							<tr>
 								<td style="text-align: left;">${host.hostIp}</td>
 								<td style="text-align: left;">${host.hostName}</td>
-								<td style="text-align: left;">${(host.hostStatus)=='0'?'<font color="red">掉线</font>':'<font color="green">正常</font>'}</td>
+								<td style="text-align: left;">${(host.hostStatus)=='0'?'<font color="green">正常</font>':'<font color="red">掉线</font>'}</td>
 								<td style="text-align: left;">${(host.pingFlag)=='0'?'否':'是'}</td>
 								<td style="text-align: center;">&nbsp;&nbsp;<a
 									href="<%=path%>/host/delete?ip=${host.hostIp}">删除</a>

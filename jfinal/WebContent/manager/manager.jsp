@@ -29,7 +29,8 @@
 								<td style="text-align: left;">${manager.name}</td>
 								<td style="text-align: left;">${manager.tel}</td>
 								<td style="text-align: left;">${(manager.useFlag)=='0'?'否':'是'}</td>
-								<td style="text-align: left;">${(manager.sendType)=='0'?'短信':'电话'}</td>
+								<!-- <td style="text-align: left;">${(manager.sendType)=='0'?'短信':'电话'}</td> -->
+								<td style="text-align: left;">短信+电话</td>
 								<td style="text-align: center;">&nbsp;&nbsp;<a
 									href="<%=path%>/manager/delete?id=${manager.id}">删除</a>
 									&nbsp;&nbsp;<a href="<%=path%>/manager/edit?id=${manager.id}">修改</a>

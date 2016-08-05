@@ -21,15 +21,15 @@
 
     	</select>${useMsg}
 	</div>
+
 	<div>
-	 	<label>通知方式*</label> <select name="manager.sendType">
+	 	<label >通知方式*</label> <select name="manager.sendType">
 
-      		<option value="0" selected="selected">短信</option>
-
-      		<option value="1" >电话</option>
+      		<option value="0" selected="selected">短信+电话</option>
 
     	</select>${sendTypeMsg}
 	</div>
+
 	<div>
 		<label>&nbsp;</label> <input value="提交" type="submit">
 	</div>

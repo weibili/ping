@@ -7,7 +7,7 @@
 	<div class="manage_container">
 		<%@ include file="/common/header.html" %>
 		<div class="main">
-			<h1>基站管理 ---&gt; 添加基站</h1>
+			<h1>链路管理 ---&gt; 添加链路</h1>
 			<div class="form_box">
 				<form action="<%=path%>/host/save" method="post">
 					<%@ include file="/host/_form.jsp"%>

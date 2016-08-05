@@ -28,21 +28,24 @@ public class MyJob implements Job  {
 		List<Host> hostList = Host.dao.find("select * from host where pingFlag='1'");
 		List<Manager> mList = Manager.dao.find("select * from manager where useFlag='1'");
 		if(hostList!=null&&hostList.size()>0){
-			for(Host host :hostList){			
-				if(ping(host.getHostIp(),2,100)){
-					host.setHostStatus("1");
+			for(Host host :hostList){
+				long count;
+				try {
+					count = Long.valueOf(host.getHostStatus());
+				} catch (Throwable e) {
+					count = 0;
+				}
+				if(ping(host.getHostIp(),3,100)){
+					if(count > 0){
+						//通知管理人员
+						for(Manager m:mList){
+							PhoneCaller.sendSms(m.getTel(), "Link to["+host.getHostName()+"], IP["+host.getHostIp()+"] come back.");
+						}
+					}
+					host.setHostStatus("0");
 				}else{
 					//IP状态为掉线
-					if("0".equals(host.getHostStatus())){
-						Pingrecord record =Pingrecord.dao.findById(host.getLastDownId());
-						Date date = new Date();
-						double hours =(date.getTime()-record.getFirstPingTs().getTime())/(60*60*1000);
-						BigDecimal   b   =   new   BigDecimal(hours);  
-						double downHours =b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();  ;
-						record.setLastPingTs(date);
-						record.setDownTime(downHours);
-						record.update();
-					}else{
+					if (count == 0) {
 						Pingrecord record = new Pingrecord();
 						String id = UUIDGenerator.getInstance().getUUID();
 						record.setId(id);
@@ -53,17 +56,31 @@ public class MyJob implements Job  {
 						record.setLastPingTs(date);
 						record.setDownTime(0.03);
 						record.save();
-						host.setHostStatus("0");
 						host.setLastDownId(id);
-						//通知管理人员
-						for(Manager m:mList){
-							if("0".equals(m.getSendType())){
-								PhoneCaller.sendSms(m.getTel(), m.getName()+"您好：设备IP["+host.getHostIp()+"]已经掉线，请处理。【自动通知】");
-							}else{
-								PhoneCaller.call(m.getTel());
+						host.setHostStatus("1");
+					} else { 
+						if (count ==1) {
+							host.setHostStatus("2");
+							//通知管理人员
+							for(Manager m:mList){
+//								if("0".equals(m.getSendType())){
+									PhoneCaller.sendSms(m.getTel(), "Link to["+host.getHostName()+"], IP["+host.getHostIp()+"] went down.");
+//								}else{
+									PhoneCaller.call(m.getTel());
+//								}
 							}
 						}
-					}					
+						Pingrecord record =Pingrecord.dao.findById(host.getLastDownId());
+						if (record!=null){
+							Date date = new Date();
+							double hours =(date.getTime()-record.getFirstPingTs().getTime())/(60*60*1000f);
+							BigDecimal   b   =   new   BigDecimal(hours);  
+							double downHours =b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();  ;
+							record.setLastPingTs(date);
+							record.setDownTime(downHours);
+							record.update();
+						}
+					}
 				}				
 				host.update();
 			}
@@ -74,7 +91,7 @@ public class MyJob implements Job  {
         Runtime r = Runtime.getRuntime();  // 将要执行的ping命令,此命令是windows格式的命令  
        String pingCommand = "ping " + ipAddress + " -n " + pingTimes    + " -w " + timeOut;  
         try {   // 执行命令并获取输出  
-           System.out.println(pingCommand);   
+              
             Process p = r.exec(pingCommand);   
             if (p == null) {    
                 return false;   
@@ -85,7 +102,8 @@ public class MyJob implements Job  {
             while ((line = in.readLine()) != null) {    
                 connectedCount += getCheckResult(line);   
             }   // 如果出现类似=23ms TTL=62这样的字样,出现的次数=测试次数则返回真  
-           return connectedCount == pingTimes;  
+            System.out.println(pingCommand + ", " + connectedCount);
+           return connectedCount >0;  
         } catch (Exception ex) {   
             ex.printStackTrace();   // 出现异常则返回假  
            return false;  

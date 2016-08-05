@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <fieldset class="solid">
-	<legend>基站信息</legend>
+	<legend>链路信息</legend>
 	<div>
-		<label>基站IP*</label> <input type="text" name="host.hostIp"
+		<label>IP地址*</label> <input type="text" name="host.hostIp"
 			value="${host.hostIp}" />${ipMsg}
 	</div>
 	<div>
-		<label>基站名称</label> <input type="text" name="host.hostName"
+		<label>链路名称</label> <input type="text" name="host.hostName"
 			value="${host.hostName}" />
 	</div>
 	<div>
