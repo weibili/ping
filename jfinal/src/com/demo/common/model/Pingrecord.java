@@ -26,7 +26,7 @@ public class Pingrecord extends BasePingrecord<Pingrecord> {
 		if(endDate!=null&&startDate.length()>0){
 			whereSql+=" and lastPingTs <=str_to_date('"+endDate+"','%Y-%m-%d %H:%i')";
 		}
-		return paginate(pageNumber, pageSize, "select * from pingrecord where 1=1 "+whereSql+" order by firstPingTs desc ");
+		return paginate(pageNumber, pageSize, "select * from pingrecord where 1=1 "+whereSql+" order by lastPingTs desc ");
 	}
 	public Page<Pingrecord> paginateSum(int pageNumber, int pageSize,String hostIp,String hostName,String startDate,String endDate ) {
 		String whereSql ="";
