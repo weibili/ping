@@ -1,2 +1,4 @@
 jfinal/WebContent/WEB-INF/classes/**/*.class
 jfinal/.classpath
+PhoneHelper/bin
+PhoneHelper/gen
